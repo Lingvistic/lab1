@@ -1,1 +1,96 @@
-<h1> Заголовок страницы</h1>
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link href="styles.css" rel="stylesheet">
+
+    <style>
+    </style>
+</head>
+
+<body>
+
+    <!-- Основной контент -->
+    <main class="container mt-5 pt-5">
+        <h1>Вычислить значение A+B</h1>
+
+        <!-- Форма для ввода значений A и B -->
+        <form method="post" action="">
+            <div class="mb-3">
+                <label class="form-label">Введите значение А</label>
+                <input type="number" name="a" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Введите значение B</label>
+                <input type="number" name="b" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-warning">Посчитать результат</button>
+        </form>
+
+        <!-- Обработка результата суммы A и B -->
+        <?php
+        $sum_result = null;
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['a'], $_POST['b'])) {
+            $a = (float)$_POST['a'];
+            $b = (float)$_POST['b'];
+            $sum_result = $a + $b;
+            echo "<p>Сумма A и B: $sum_result</p>";
+        }
+        ?>
+
+        <h1>Вычислить площадь треугольника</h1>
+
+        <!-- Форма для ввода сторон треугольника -->
+        <form method="post" action="">
+            <div class="mb-3">
+                <label class="form-label">Введите длину первой стороны</label>
+                <input type="number" name="number1" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Введите длину второй стороны</label>
+                <input type="number" name="number2" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Введите длину третьей стороны</label>
+                <input type="number" name="number3" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-warning">Узнать площадь</button>
+        </form>
+
+       <?php
+        // Обработка расчета площади треугольника
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['number1'], $_POST['number2'], $_POST['number3'])) {
+            $number1 = (float)$_POST['number1'];
+            $number2 = (float)$_POST['number2'];
+            $number3 = (float)$_POST['number3'];
+
+            // Площадь треугольника (по формуле Герона)
+            $p = ($number1 + $number2 + $number3) / 2;
+            $area = sqrt($p * ($p - $number1) * ($p - $number2) * ($p - $number3));
+
+            echo "<p>Площадь треугольника равна: $area </p>";
+
+            // Проверка на равносторонний треугольник
+            if ($number1 == $number2 && $number2 == $number3) {
+                echo "<p>Это равносторонний треугольник</p>";
+            } else {
+                echo "<p>Это не равносторонний треугольник</p>";
+            }
+        }
+        ?>
+
+    </main>
+
+    <!-- JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+</body>
+
+</html>
+
